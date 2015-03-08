@@ -1,0 +1,89 @@
+import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
+import java.awt.*
+
+buildscript {
+    apply from: "gradle/buildscript.gradle", to: buildscript
+}
+
+group = 'net.kaeff'
+description = 'A microlibrary for stressless pluck functions in Java'
+
+// convention: project.name == github project name == bintray package page
+project.ext {
+    build = {
+        gradle = 2.3
+        java = 1.8
+        // if not empty runs animal sniffer on compile to guarantee binary compatibility; set '' to disable
+        signature = ''
+    }
+    github = {
+        user = 'kaeff'
+    }
+    bintray = {
+        user = project.hasProperty('bintrayUser') ? bintrayUser : 'USER' // configured in ~/.gradle/gradle.properties
+        key = project.hasProperty('bintrayKey') ? bintrayKey : 'KEY' // configured in ~/.gradle/gradle.properties
+        repo = 'pluck'
+        tags = ['java', 'functional', 'pluck']
+        dryRun = false // whether to run this as dry-run, without deploying (TEST RUN)
+        publish = true //If version should be auto published after an upload
+
+        signFiles = true // true to gpg sign files on bintray (certificate must be installed on bintray account)
+        gpgPassphrase = project.hasProperty('gpgPassphrase') ? gpgPassphrase : '' // optionally configured in ~/.gradle/gradle.properties if certificate requires it
+
+        mavenCentralSync = false // true to sync with maven central (files signing required)
+        ossUser = project.hasProperty('sonatypeUser') ? sonatypeUser : 'USER' // configured in ~/.gradle/gradle.properties
+        ossPassword = project.hasProperty('sonatypePassword') ? sonatypePassword : 'PASSWORD' // configured in ~/.gradle/gradle.properties
+    }
+    license = 'MIT'
+    licenseDesc = 'The MIT License'
+    // extend pom for maven central acceptance
+    pomConfig = {
+        scm {
+            url github.scm
+            connection github.scmConnection
+            developerConnection github.scmConnection
+        }
+        licenses {
+            license {
+                name licenseDesc
+                url github.licenseUrl
+                distribution "repo"
+            }
+        }
+        developers {
+            developer {
+                id "kaeff"
+                name "Klaus Fl"
+                email "hi@kaeff.net"
+            }
+        }
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'groovy'
+apply plugin: 'com.github.ben-manes.versions'
+apply plugin: 'project-report'
+apply plugin: 'idea'
+
+apply from: 'gradle/build.gradle'
+apply from: 'gradle/github.gradle'
+apply from: 'gradle/bintray.gradle'
+apply from: 'gradle/release.gradle'
+apply from: 'gradle/maven.gradle'
+apply from: 'gradle/quality.gradle'
+
+apply from: 'build-deps.gradle'
+
+task checkOutOfDate(type: DependencyUpdatesTask, description: 'Checks dependencies updates availability') {
+    revision 'release'
+}
+
+task showDependenciesTree(dependsOn: 'htmlDependencyReport', description:
+        'Generates dependencies tree report and opens it in browser (useful to analyze dependencies)') << {
+    Desktop.getDesktop().open(file('/build/reports/project/dependencies/root.html'))
+}
+
+task install(dependsOn: 'publishMavenJavaPublicationToMavenLocal', description: 'Install to local maven repository') << {
+    logger.warn "INSTALLED $project.group:$project.name:$project.version"
+}

@@ -1,0 +1,7 @@
+build/
+.gradle/
+pluck.iml
+pluck.ipr
+pluck.iws
+gradle/
+gradlew*

@@ -1,0 +1,20 @@
+{
+  "generator-lib-java": {
+    "githubUser": "kaeff",
+    "authorName": "Klaus Fl",
+    "authorEmail": "hi@kaeff.net",
+    "libName": "pluck",
+    "libGroup": "net.kaeff",
+    "libPackage": "net.kaeff.pluck",
+    "libVersion": "0.0.1",
+    "libDesc": "A microlibrary for stressless pluck functions in Java",
+    "targetJava": "1.8",
+    "libTags": "java,functional,pluck",
+    "bintrayUser": "kaeff",
+    "bintrayRepo": "pluck",
+    "bintraySignFiles": true,
+    "mavenCentralSync": false,
+    "enableQualityChecks": true,
+    "usedGeneratorVersion": "1.0.2"
+  }
+}
