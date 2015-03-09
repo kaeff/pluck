@@ -1,6 +1,8 @@
 package net.kaeff.pluck;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import java.util.function.Function;
 
@@ -9,14 +11,17 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ReadmeExampleTest {
 
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+
     static class Person {
-        private String name;
+        private final String name;
         public Person(String name) { this.name = name; }
         public String getName() { return name; }
     }
 
-    private String name = "John Smith";
-    private Person person = new Person(name);
+    private final String name = "John Smith";
+    private final Person person = new Person(name);
 
     @Test
     public void exampleWithoutPluckUsingAnonymousClass() {
