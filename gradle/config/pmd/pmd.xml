@@ -46,6 +46,7 @@
         <exclude name="UseConcurrentHashMap"/>
         <exclude name="DataflowAnomalyAnalysis"/>
         <exclude name="CallSuperInConstructor"/>
+        <exclude name="OnlyOneReturn"/>
     </rule>
 
     <rule ref="rulesets/java/design.xml">
