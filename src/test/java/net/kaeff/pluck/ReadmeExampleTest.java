@@ -1,5 +1,6 @@
 package net.kaeff.pluck;
 
+import net.kaeff.pluck.subjects.Person;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -13,12 +14,6 @@ public class ReadmeExampleTest {
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
-
-    static class Person {
-        private final String name;
-        public Person(String name) { this.name = name; }
-        public String getName() { return name; }
-    }
 
     private final String name = "John Smith";
     private final Person person = new Person(name);
