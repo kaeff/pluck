@@ -7,10 +7,11 @@ import org.junit.rules.ExpectedException;
 
 import java.util.function.Function;
 
+import static net.kaeff.pluck.PluckByMethodName.*;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class ReadmeExampleTest {
+public class PluckByMethodNameTest {
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -43,7 +44,7 @@ public class ReadmeExampleTest {
 
     @Test
     public void shouldPluckParameterlessMethodByName() {
-        Function<Person,String> nameFromPerson = Pluck.pluck(Person.class, "getName");
+        Function<Person,String> nameFromPerson = pluck(Person.class, "getName");
 
         String plucked = nameFromPerson.apply(person);
 

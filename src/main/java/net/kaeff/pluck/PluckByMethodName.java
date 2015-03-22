@@ -6,9 +6,9 @@ import java.util.function.Function;
 /**
  * Use the static `pluck()` function to create a `Function` that represents a method call on an object.
  */
-public final class Pluck {
+final class PluckByMethodName {
 
-    private Pluck() {
+    private PluckByMethodName() {
     }
 
     /**
