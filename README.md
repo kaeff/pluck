@@ -74,3 +74,12 @@ String name = Optional.of(new BusinesObject()))
 .transform(pluck(BusinessObject.class, "getName"))
 .orNull();
 ```
+
+### Performance
+
+Test	Duration	Result
+exampleWithoutPluckUsingAnonymousClass	0.001s	passed
+exampleWithoutPluckUsingLambda	0.061s	passed
+shouldPluckParameterlessMethodByName	0.005s	passed
+shouldPluckParameterlessMethodBySampleInvocation	0.229s	passed
+
