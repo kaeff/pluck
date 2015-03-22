@@ -1,8 +1,8 @@
 package net.kaeff.pluck;
 
 import org.mockito.Mockito;
-import org.mockito.internal.invocation.Invocation;
 import org.mockito.internal.util.MockUtil;
+import org.mockito.invocation.Invocation;
 import org.mockito.listeners.InvocationListener;
 import org.mockito.listeners.MethodInvocationReport;
 
@@ -59,7 +59,7 @@ final class PluckDsl {
     }
 
     private static void rememberLastMock(final Object mock) {
-        new MockUtil().getMockHandler(mock).getMockSettings().invocationListeners(new RemembersLastMock(mock));
+        new MockUtil().getMockHandler(mock).getMockSettings().getInvocationListeners().add(new RemembersLastMock(mock));
     }
 
     private static class RemembersLastMock implements InvocationListener {
