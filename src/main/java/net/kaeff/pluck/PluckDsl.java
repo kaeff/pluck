@@ -59,19 +59,14 @@ final class PluckDsl {
     }
 
     private static void rememberLastMock(final Object mock) {
-        new MockUtil().getMockHandler(mock).getMockSettings().getInvocationListeners().add(new RemembersLastMock(mock));
-    }
+        final Object mock1 = mock;
+        new MockUtil().getMockHandler(mock).getMockSettings().getInvocationListeners().add(new InvocationListener() {
+            private final Object mock = mock1;
 
-    private static class RemembersLastMock implements InvocationListener {
-        private final Object mock;
-
-        public RemembersLastMock(final Object mock) {
-            this.mock = mock;
-        }
-
-        @Override
-        public void reportInvocation(final MethodInvocationReport methodInvocationReport) {
-            lastMock = mock;
-        }
+            @Override
+            public void reportInvocation(final MethodInvocationReport methodInvocationReport) {
+                lastMock = mock;
+            }
+        });
     }
 }
